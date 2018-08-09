@@ -14,7 +14,9 @@ yarn-error.log*
 .venv/
 
 # Transpiled code
+/assets
 /assets/
+chronos_watch/client/assets/
 
 # VS Code
 .vscode/

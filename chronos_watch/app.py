@@ -1,19 +1,21 @@
 import falcon
-import os
+import os, pathlib
 
-# Main view route
-class ViewResource(object):
+"""Time punch, in or out."""
+class PunchResource(object):
+    def on_post(self):
+        pass
+
     def on_get(self, req, resp):
+        """Get list of punches."""
         resp.status = falcon.HTTP_200
-        resp.content_type = 'text/html'
-        filename = os.path.abspath('chronos_watch/client/index.html')
-        resp.stream = open(filename, 'rb')
+        resp.body = 'List of punches :)'
 
-api = app = application = falcon.API()
-# api.add_route('/', ViewResource())
-import pathlib
+
+app = application = falcon.API()
+
 STATIC_PATH = pathlib.Path(__file__).parent / 'client'
-# print(os.path.abspath('chronos_watch/client/index.html'))
-# print('test')
-# print(STATIC_PATH)
-api.add_static_route('/', str(STATIC_PATH))
+
+app.add_static_route('/', str(STATIC_PATH))
+app.add_route('/api/punch', PunchResource())
+
