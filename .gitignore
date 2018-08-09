@@ -13,6 +13,9 @@ yarn-error.log*
 # Virtualenv
 .venv/
 
+# Transpiled code
+/assets/
+
 # VS Code
 .vscode/
 
