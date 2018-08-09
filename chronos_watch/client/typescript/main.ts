@@ -7,4 +7,15 @@ async function printPunches(): Promise<string> {
     return text;
 }
 
+async function postPunch() {
+    let text: string = 'Hello worlds to the Falcon!';
+    await fetch(API_PATH + 'punch', { 
+        method: 'POST',
+        mode: 'cors',
+        body: JSON.stringify({ text: text })
+     });
+     console.log('posted')
+}
+
 printPunches();
+postPunch();
