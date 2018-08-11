@@ -8,11 +8,18 @@ async function printPunches(): Promise<string> {
 }
 
 async function postPunch() {
-    let text: string = 'Hello worlds to the Falcon!';
+    let punch = {
+        timestamp: new Date(),
+        punch_type: 'in'
+    };
     await fetch(API_PATH + 'punch', { 
         method: 'POST',
         mode: 'cors',
-        body: JSON.stringify({ text: text })
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(punch)
      });
      console.log('posted')
 }
