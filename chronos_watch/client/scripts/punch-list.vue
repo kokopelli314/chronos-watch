@@ -15,12 +15,17 @@ import Component from 'vue-class-component';
 
 let API_PATH: string = 'http://localhost:8000/api/';
 
+@Component
 export default class PunchList extends Vue {
-    punches: Array<object>;
+    punches: object[] = [];
 
     constructor() {
         super();
-        this.punches = [];
+        this.loadPunches();
+    }
+
+    async loadPunches() {
+        this.punches = await getPunches();
     }
 
     // mounted: async function() {
