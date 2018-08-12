@@ -5,7 +5,9 @@
         :key="i"
     >
         <p>{{ punch.timestamp }}</p>
-        <button>X</button>
+        <button
+            @click="deletePunch(punch)"
+        >X</button>
     </div>
 </div>
 </template>
@@ -14,12 +16,30 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
-
 let API_PATH: string = 'http://localhost:8000/api/';
+
+
+
+
+class Punch {
+    id!: number;
+    timestamp!: Date;
+    punch_type!: string;
+
+    constructor(data: Partial<Punch>) {
+        Object.assign(this, data);
+    }
+
+    static deserialize(json: object): Punch {
+        return new Punch(json);
+    }
+}
+
+
 
 @Component
 export default class PunchList extends Vue {
-    punches: object[] = [];
+    punches: Punch[] = [];
 
     constructor() {
         super();
@@ -28,12 +48,18 @@ export default class PunchList extends Vue {
 
     async loadPunches() {
         this.punches = await getPunches();
+        console.log(this.punches);
+    }
+
+    async deletePunch(punch: Punch) {
+
     }
 };
 
-async function getPunches(): Promise<object[]> {
+async function getPunches(): Promise<Punch[]> {
     let res: Response = await fetch(API_PATH + 'punch');
-    return (await res.json()).punches;
+    let list = (await res.json()).punches;
+    return list.map(Punch.deserialize);
 }
 
 </script>

@@ -3,6 +3,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 
 module.exports = {
+    // mode: 'development',
     entry: path.join(__dirname, '/chronos_watch/client/scripts/main.ts'),
     output: {
         filename: 'main.js',
