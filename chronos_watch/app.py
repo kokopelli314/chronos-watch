@@ -18,8 +18,8 @@ class PeeweeConnectionMiddleware(object):
             database.close()
 
 
-"""Time punch, in or out."""
 class PunchResource(object):
+    """Time punch, in or out."""
     def on_post(self, req, resp):
         print('Post received!', file=sys.stderr)
         body = req.media

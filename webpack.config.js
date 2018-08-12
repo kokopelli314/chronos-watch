@@ -21,6 +21,19 @@ module.exports = {
                 options: {
                     appendTsSuffixTo: [/\.vue$/]
                 }
+            },
+            {
+                test: /\.sass$/,
+                use: [
+                    'vue-style-loader',
+                    'css-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            indentedSyntax: false
+                        }
+                    }
+                ]
             }
         ]
     },

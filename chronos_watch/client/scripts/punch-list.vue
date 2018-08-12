@@ -1,9 +1,11 @@
 <template>
-<div>
-    <div v-for="(punch, i) in punches"
+<div class="punch-list">
+    <div class=""
+        v-for="(punch, i) in punches"
         :key="i"
     >
         <p>{{ punch.timestamp }}</p>
+        <button>X</button>
     </div>
 </div>
 </template>
@@ -27,21 +29,22 @@ export default class PunchList extends Vue {
     async loadPunches() {
         this.punches = await getPunches();
     }
-
-    // mounted: async function() {
-    //     let x = await getPunches();
-    //     console.log(x)
-    // }
 };
 
-async function getPunches(): Promise<Array<object>> {
+async function getPunches(): Promise<object[]> {
     let res: Response = await fetch(API_PATH + 'punch');
     return (await res.json()).punches;
 }
 
-
 </script>
 
-<style>
+
+<style lang="sass">
+$bg-color: #aaa;
+
+.punch-list {
+    background-color: #aaa;
+}
+
 
 </style>
