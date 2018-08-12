@@ -21,9 +21,8 @@ class PeeweeConnectionMiddleware(object):
 """Time punch, in or out."""
 class PunchResource(object):
     def on_post(self, req, resp):
-        print('hello -- we got a post!', file=sys.stderr)
+        print('Post received!', file=sys.stderr)
         body = req.media
-        print(body)
         try:
             punch = Punch(
                 timestamp=body['timestamp'],
@@ -31,7 +30,7 @@ class PunchResource(object):
             )
             punch.save()
         except KeyError:
-            print('Missing key')
+            print('Missing key!')
 
 
     def on_get(self, req, resp):

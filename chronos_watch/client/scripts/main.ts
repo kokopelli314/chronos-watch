@@ -1,18 +1,16 @@
+import PunchList from './punch-list.vue';
+import Vue from 'vue';
+
+
 let API_PATH: string = 'http://localhost:8000/api/';
 
-async function printPunches(): Promise<string> {
-    let res: Response = await fetch(API_PATH + 'punch');
-    let text: string = await res.text();
-    console.log(text);
-    return text;
-}
 
 async function postPunch() {
     let punch = {
         timestamp: new Date(),
         punch_type: 'in'
     };
-    await fetch(API_PATH + 'punch', { 
+    return await fetch(API_PATH + 'punch', { 
         method: 'POST',
         mode: 'cors',
         headers: {
@@ -24,5 +22,19 @@ async function postPunch() {
      console.log('posted')
 }
 
-printPunches();
-postPunch();
+// printPunches();
+
+let vm = new Vue({
+    el: '#app',
+
+    components: {
+        'punch-list': PunchList
+    },
+
+    mounted: async function () {
+        console.log('Vue mounted.');
+        // console.log(await getPunches());
+    }
+});
+
+
