@@ -1,9 +1,10 @@
 <template>
 <div class="punch-list">
-    <div class=""
+    <div class="row"
         v-for="(punch, i) in punches"
         :key="i"
     >
+        <p>{{ punch.punch_type }}</p>
         <p>{{ punch.timestamp }}</p>
         <button
             @click="deletePunch(punch)"
@@ -19,12 +20,15 @@ import Component from 'vue-class-component';
 let API_PATH: string = 'http://localhost:8000/api/';
 
 
-
+enum PunchType {
+    'in',
+    'out'
+}
 
 class Punch {
     id!: number;
     timestamp!: Date;
-    punch_type!: string;
+    punch_type!: PunchType;
 
     constructor(data: Partial<Punch>) {
         Object.assign(this, data);
@@ -48,11 +52,10 @@ export default class PunchList extends Vue {
 
     async loadPunches() {
         this.punches = await getPunches();
-        console.log(this.punches);
     }
 
     async deletePunch(punch: Punch) {
-
+        console.log(`Delete Punch ${punch.id}!`);
     }
 };
 
@@ -72,5 +75,11 @@ $bg-color: #aaa;
     background-color: #aaa;
 }
 
+.row {
+    max-width: 500px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 
 </style>
